@@ -1,21 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package aula6;
 
-/**
- *
- * @author Arleys
- */
+import fja.edu.br.Divisao;
+
+
 public class Aula6 {
 
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        Divisao div = new Divisao(-500, 0);
+        
+        
+        System.out.println("INICIO");
+        div.divide();
+        System.out.println("FIM - NO MAIN");
+        
+        
     }
     
 }
