@@ -16,7 +16,7 @@ public class Aula6 {
         System.out.println("INICIO");
         div.divide();
         System.out.println("FIM - NO MAIN");
-        //--------------------------------------------//
+        //-------------------------------------------- //
         
         
         Martelo m1 = new Martelo("Prego pequeno", 50, 30);
