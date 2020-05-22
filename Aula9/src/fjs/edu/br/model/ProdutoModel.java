@@ -23,16 +23,17 @@ public class ProdutoModel extends DaoUtil implements IProdutoService{
         if(prod.getIdproduto() > 0){
             sql += " AND idProduto = " + prod.getIdproduto();
         }
-        if(!prod.getNome().isEmpty()){
+        if(prod.getNome() != null){
             sql += " AND nome like '%" + prod.getNome() + "%' ";
         }
         if(prod.getPreco() > 0.0F ){
             sql += " AND preco = " + prod.getPreco();
         }
-        if(!prod.getDescricao().isEmpty()){
+        if(prod.getDescricao() != null){
             sql += " AND descricao like '%" + prod.getDescricao() + "%' ";
         }
         
+        sql += " order by nome";
         return sql;
     }
 

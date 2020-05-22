@@ -5,6 +5,18 @@
  */
 package fjs.edu.br.view;
 
+import fjs.edu.br.controller.ProdutoController;
+import fjs.edu.br.controller.modelotable.ModeloTabela;
+import fjs.edu.br.entidades.ProdutoDto;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ListSelectionModel;
+
 /**
  *
  * @author Arleys
@@ -42,7 +54,7 @@ public class Produto extends javax.swing.JFrame {
         btnGravar = new javax.swing.JButton();
         btnDeletar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblProduto = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,14 +77,36 @@ public class Produto extends javax.swing.JFrame {
         });
 
         btnNovo.setText("Novo");
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoActionPerformed(evt);
+            }
+        });
 
         btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
 
         btnGravar.setText("Gravar");
+        btnGravar.setEnabled(false);
+        btnGravar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGravarActionPerformed(evt);
+            }
+        });
 
         btnDeletar.setText("Deletar");
+        btnDeletar.setEnabled(false);
+        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -83,48 +117,50 @@ public class Produto extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tblProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProdutoMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblProduto);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtDescricao))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3))
-                                .addGap(42, 42, 42)
-                                .addComponent(lblId))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addGap(28, 28, 28)
-                                    .addComponent(txtValidade, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(76, 76, 76)
-                                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
-                            .addComponent(btnGravar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnDeletar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, 807, Short.MAX_VALUE)
+                    .addComponent(btnGravar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDeletar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtDescricao))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3))
+                        .addGap(42, 42, 42)
+                        .addComponent(lblId))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addGap(28, 28, 28)
+                            .addComponent(txtValidade, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(344, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,6 +205,123 @@ public class Produto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDescricaoActionPerformed
 
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        
+        ProdutoDto prod = new ProdutoDto();
+        float valor;
+        Date validade;
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        
+        try {
+            if(!txtValidade.getText().isEmpty()){
+                validade = df.parse(txtValidade.getText());
+                prod.setValidade(validade);
+            }
+            if(!txtPreco.getText().isEmpty()){
+                valor = Float.parseFloat(txtPreco.getText());
+                prod.setPreco(valor);
+            }
+            
+            if(!txtNome.getText().isEmpty())
+                prod.setNome(txtNome.getText());
+            
+            if(!txtDescricao.getText().isEmpty())
+                prod.setDescricao(txtDescricao.getText());
+            
+            CarregarTabelaDaTela(prod);
+            
+        } catch (ParseException ex) {
+            Logger.getLogger(Produto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        LimpaCamposDaTela();
+        btnGravar.setEnabled(true);
+    }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
+        ProdutoDto prod = new ProdutoDto();
+        float valor;
+        Date validade;
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        ProdutoController proController = new ProdutoController();
+        
+        try {
+            if(!txtValidade.getText().isEmpty()){
+                validade = df.parse(txtValidade.getText());
+                prod.setValidade(validade);
+            }
+            if(!txtPreco.getText().isEmpty()){
+                valor = Float.parseFloat(txtPreco.getText());
+                prod.setPreco(valor);
+            }
+            
+            if(!txtNome.getText().isEmpty())
+                prod.setNome(txtNome.getText());
+            
+            if(!txtDescricao.getText().isEmpty())
+                prod.setDescricao(txtDescricao.getText());
+            
+            if(lblId.getText().equalsIgnoreCase("[ID]")){
+                proController.GravaProduto(prod);
+            }else{
+                prod.setIdproduto(Integer.parseInt(lblId.getText()));
+                proController.AlteraProduto(prod);
+            }
+            LimpaCamposDaTela();
+            prod = new ProdutoDto();
+            CarregarTabelaDaTela(prod);
+            btnGravar.setEnabled(false);
+        } catch (ParseException ex) {
+            Logger.getLogger(Produto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnGravarActionPerformed
+
+    private void tblProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProdutoMouseClicked
+        int linha = tblProduto.getSelectedRow();
+        
+        lblId.setText(tblProduto.getValueAt(linha, 0).toString());
+        txtNome.setText(tblProduto.getValueAt(linha, 1).toString());
+        txtPreco.setText(tblProduto.getValueAt(linha, 2).toString());
+        txtValidade.setText(tblProduto.getValueAt(linha, 3).toString());
+        txtDescricao.setText(tblProduto.getValueAt(linha, 4).toString());
+    }//GEN-LAST:event_tblProdutoMouseClicked
+
+    private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
+        ProdutoDto prod = new ProdutoDto();
+        ProdutoController proController = new ProdutoController();
+        
+        if(!lblId.getText().equalsIgnoreCase("[ID]")){
+            prod.setIdproduto(Integer.parseInt(lblId.getText()));
+            proController.DeletarProiduto(prod);
+        }
+        LimpaCamposDaTela();
+        prod = new ProdutoDto();
+        CarregarTabelaDaTela(prod);
+    }//GEN-LAST:event_btnDeletarActionPerformed
+
+    private void CarregarTabelaDaTela(ProdutoDto prod){
+        String[] colunas = new String[] {"CÓDIGO", "NOME", "PREÇO", "VALIDADE", "DESCRIÇÃO"};
+        ProdutoController prodController = new ProdutoController();
+        ArrayList dados = prodController.ConsultaTodosProdutoPorFiltro(prod);
+        ModeloTabela modelo = new ModeloTabela(dados, colunas);
+        tblProduto.setModel(modelo);
+        tblProduto.setAutoResizeMode(tblProduto.AUTO_RESIZE_ALL_COLUMNS);
+        tblProduto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    }
+    
+    private void LimpaCamposDaTela(){
+        lblId.setText("[ID]");
+        txtDescricao.setText("");
+        txtNome.setText("");
+        txtPreco.setText("");
+        txtDescricao.setText("");
+        txtValidade.setText("");
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -215,8 +368,8 @@ public class Produto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblId;
+    private javax.swing.JTable tblProduto;
     private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtPreco;
