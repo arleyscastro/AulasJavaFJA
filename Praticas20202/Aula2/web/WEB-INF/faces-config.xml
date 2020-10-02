@@ -9,6 +9,10 @@
             <from-outcome>vaiParaResultado</from-outcome>
             <to-view-id>/resultado.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>vaiParaPessoas</from-outcome>
+            <to-view-id>/ListagemPessoa.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/resultado.xhtml</from-view-id>
@@ -27,4 +31,11 @@
         <managed-bean-class>fja.edu.br.src.Clientes</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    <navigation-rule>
+        <from-view-id>/ListagemPessoa.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>voltaParaIndex</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

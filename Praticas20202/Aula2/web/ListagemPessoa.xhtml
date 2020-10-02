@@ -5,25 +5,61 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Listagem</title>
+        <link rel="stylesheet" type="text/css" href="cores.css" />
     </h:head>
     <h:body>
         <h:form>
             
-            <h:dataTable var="umaPessoa" value="#{clientes.pessoas}" style="width: 95%">
+            <h:dataTable var="umaPessoa" 
+                         value="#{clientes.pessoas}" 
+                         style="width: 95%" 
+                         border="1"
+                         headerClass="cinza"
+                         rowClasses="amarelo,azul,verde">
                 
                 <h:column>
                     <f:facet name="header">
                         <h:outputLabel value="NOME"/>
                     </f:facet>
                     
-                    <h:outputLabel value="#{}"
+                    <h:outputLabel value="#{umaPessoa.nome}" />
+                    
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="PESO" />
+                    </f:facet>
+                    
+                    <h:outputLabel value="#{umaPessoa.peso}" />
+                    
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="ALTURA" />
+                    </f:facet>
+                    
+                    <h:outputLabel value="#{umaPessoa.altura}" />
+                    
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="IMC" />
+                    </f:facet>
+                     
+                    <h:outputLabel value="#{umaPessoa.imc}" />
                     
                 </h:column>
                 
                 
+                
+                
+                
             </h:dataTable>
             
-            <h:commandButton value="Voltar para index" />
+            <h:commandButton value="Voltar para index" action="voltaParaIndex"/>
         </h:form>
     </h:body>
 </html>
