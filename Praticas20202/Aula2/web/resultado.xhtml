@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Resultado</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h1>RESULTADO DO IMC</h1>
+            
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Sr(a)</th>
+                        <th>
+                            <h:outputLabel value="#{calculoImc.nome}" />
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Seu Peso</td>
+                        <td><h:outputLabel value="#{calculoImc.peso}" /></td>
+                    </tr>
+                    <tr>
+                        <td>Sua altura</td>
+                        <td><h:outputLabel value="#{calculoImc.altura}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Seu IMC é:</td>
+                        <td> <h:outputLabel value="#{calculoImc.imc}" /> </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            
+            
+            
+            <h:commandButton value="Voltar" action="voltaParaIndex"/>
+        </h:form>
+    </h:body>
+</html>
+
