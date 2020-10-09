@@ -14,7 +14,7 @@ public class ProdutoRepositorio extends DaoUtil implements IProduto{
 
     public ProdutoRepositorio() {
         super();
-    }    
+    }
 
     @Override
     public boolean incluir(Produto produto) {
