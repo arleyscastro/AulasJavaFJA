@@ -4,19 +4,19 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Listagem</title>
+        <title>Vendas</title>
         <link rel="stylesheet" type="text/css" href="MeuCss.css" />
     </h:head>
     <h:body>
         <h:form>
-            <h1>LISTAGEM DOS PRODUTOS CADASTRADOS</h1>
+            <h1>LISTAGEM DAS VENDAS REALIZADAS</h1>
             <h:commandButton value="VOLTAR" style="width:  95%" action="voltaParaIndex"/>
-            <h:commandButton value="CRIAR NOVO PRODUTO" style="width:  95%" action="#{produtoController.preparaInclusao()}"/>
+            <h:commandButton value="FAZER NOVA VENDA" style="width:  95%" action="#{produtoController.preparaInclusao()}"/>
             <br/>
             
             <h:dataTable style="width: 95%"
-                         var="umProd"
-                         value="#{produtoController.produtos}"
+                         var="umaVenda"
+                         value="#{vendasController.vendas}"
                          border="1"
                          rowClasses="azul,verde">
                 
@@ -25,40 +25,57 @@
                         <h:outputLabel value="CÓDIGO"/>
                     </f:facet>
                     
-                    <h:outputLabel value="#{umProd.idproduto}" />
+                    <h:outputLabel value="#{umaVenda.idvendas}" />
                     
                 </h:column>
                 
                 <h:column>
                     <f:facet name="header">
-                        <h:outputLabel value="NOME"/>
+                        <h:outputLabel value="PRODUTO"/>
                     </f:facet>
                     
-                    <h:outputLabel value="#{umProd.nome}" />
+                    <h:outputLabel value="#{umaVenda.produto.descricao}" />
                     
                 </h:column>
-                
-                
                 <h:column>
                     <f:facet name="header">
-                        <h:outputLabel value="PREÇO"/>
+                        <h:outputLabel value="PREÇO CUSTO"/>
                     </f:facet>
                     
-                    <h:outputLabel value="#{umProd.preco}" />
-                    
-                </h:column>
-                
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputLabel value="VALIDADE"/>
-                    </f:facet>
-                    
-                    <h:outputLabel value="#{umProd.validade}">
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    <h:outputLabel value="#{umaVenda.produto.preco}">
+                        <f:convertNumber pattern="#,###,##0.00"/>
                     </h:outputLabel>
                     
                 </h:column>
                 
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="VENDEDOR"/>
+                    </f:facet>
+                    
+                    <h:outputLabel value="#{umaVenda.vendedor.nome}" />
+                    
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="VL VENDA" />
+                    </f:facet>
+                    
+                    <h:outputLabel value="#{umaVenda.vlvenda}">
+                        <f:convertNumber pattern="#,###,##0.00"/>
+                    </h:outputLabel>
+                    
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="QUANTIDADE"/>
+                    </f:facet>
+                    
+                    <h:outputLabel value="#{umaVenda.quantidade}" />
+                    
+                </h:column>
 
                 <h:column>
                     <f:facet name="header">
@@ -76,10 +93,7 @@
                     </h:commandLink>
                     
                     <h:outputLabel value="|"/>
-                    
-                    <h:commandLink value="Deletar" action="#{produtoController.finalizaDelecao()}">
-                        <f:setPropertyActionListener target="#{produtoController.produto}" value="#{umProd}" />
-                    </h:commandLink>
+                    <h:outputLabel value="Deletar"/>
                     
                     
                 </h:column>                

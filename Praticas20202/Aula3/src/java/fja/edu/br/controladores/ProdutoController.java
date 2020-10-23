@@ -48,4 +48,10 @@ public class ProdutoController {
         return "voltaParaListagem";
     }
     
+    public String finalizaDelecao(){
+        prodRepositorio.deletar( produto.getIdproduto() );
+        produtos = null;
+        return "refresh";
+    }
+    
 }
