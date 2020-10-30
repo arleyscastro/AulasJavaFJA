@@ -9,6 +9,8 @@ public class Vendas {
     private int quantidade;
 
     public Vendas() {
+        vendedor = new Vendedor();
+        produto = new Produto();
     }
 
     public Vendas(int idvendas, Produto produto, Vendedor vendedor, double vlvenda, int quantidade) {

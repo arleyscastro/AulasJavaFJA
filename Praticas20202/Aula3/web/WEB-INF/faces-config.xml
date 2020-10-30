@@ -78,5 +78,21 @@
             <from-outcome>voltaParaIndex</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>vaiParaIncluir</from-outcome>
+            <to-view-id>/VendasIncluir.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/VendasIncluir.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>voltaParaListagem</from-outcome>
+            <to-view-id>/VendasListagem.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <managed-bean>
+        <managed-bean-name>vendedorController</managed-bean-name>
+        <managed-bean-class>fja.edu.br.controladores.VendedorController</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>

@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Inclusão de venda</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h1>INCLUSÃO DE UMA VENDA</h1>
+            <table border="1">
+                <tbody>
+                    <tr>
+                        <td>VENDEDOR</td>
+                        <td>
+                            <h:selectOneMenu id="cboVendedor"
+                                             value="#{vendasController.venda.vendedor.idvendedor}"
+                                             style="width: 350px">
+                            
+                                <f:selectItem itemLabel="Selecione um item...."
+                                              itemValue="-1"/>
+                                
+                                <f:selectItems value="#{vendedorController.vendedores}"
+                                               var="umVendedor"
+                                               itemLabel="#{umVendedor.nome}"
+                                               itemValue="#{umVendedor.idvendedor}" />
+                                
+                            </h:selectOneMenu>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>PRODUTO</td>
+                        <td>  
+                            <h:selectOneMenu id="cboProduto"
+                                             value="#{vendasController.venda.produto.idproduto}"
+                                             style="width: 350px" >
+                                
+                                <f:selectItem itemLabel="Selecione um item...."
+                                              itemValue="-1"/>
+                                
+                                <f:selectItems value="#{produtoController.produtos}"
+                                               var="umProduto"
+                                               itemLabel="#{umProduto.nome}"
+                                               itemValue="#{umProduto.idproduto}" />
+                                               
+                            </h:selectOneMenu>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>QUANTIDADE</td>
+                        <td> <h:inputText value="#{vendasController.venda.quantidade}" maxlength="5" size="40" /> </td>
+                    </tr>
+                    <tr>
+                        <td> VALOR DA VENDA  </td>
+                        <td><h:inputText value="#{vendasController.venda.vlvenda}" maxlength="10" size="40" /></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br/>
+            <h:commandButton value="Voltar" style="width: 48%" action="voltaParaListagem" />
+            <h:commandButton value="Gravar" style="width: 48%" action="#{vendasController.finalizaInclusao()}" />
+
+        </h:form>
+    </h:body>
+</html>
+
