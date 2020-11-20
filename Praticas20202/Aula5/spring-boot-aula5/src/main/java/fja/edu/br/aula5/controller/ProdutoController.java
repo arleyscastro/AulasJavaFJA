@@ -3,7 +3,6 @@ package fja.edu.br.aula5.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,34 +12,34 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fja.edu.br.aula5.model.Vendedor;
-import fja.edu.br.aula5.servico.VendedorServico;
+import fja.edu.br.aula5.model.Produto;
+import fja.edu.br.aula5.servico.ProdutoServico;
 
 @RestController
-@RequestMapping("/vendedor")
-public class VendedorController {
+@RequestMapping("/produto")
+public class ProdutoController {
 	
 	@Autowired
-	private VendedorServico servico;
-
+	private ProdutoServico servico;
+	
 	@GetMapping("/buscaporid/{id}")
-	public Vendedor buscaPorId(@PathVariable("id") long id) {		
+	public Produto buscaPorId(@PathVariable("id") long id) {
 		return servico.buscaPorId(id);
 	}
 	
 	@GetMapping("/buscatodos")
-	public List<Vendedor> buscaTodos(){
+	public List<Produto> buscaTodos(){
 		return servico.buscaTodos();
 	}
 	
 	@PostMapping("/cadastrar")
-	public Vendedor cadastrar(@RequestBody Vendedor vendedor) {
-		return servico.inserir(vendedor);
+	public Produto cadastrar(@RequestBody Produto produto) {
+		return servico.inserir(produto);
 	}
 	
 	@PutMapping("/alterar")
-	public Vendedor alterar(@RequestBody Vendedor vendedor) {
-		return servico.alterar(vendedor);
+	public Produto alterar(@RequestBody Produto produto) {
+		return servico.alterar(produto);
 	}
 	
 	@DeleteMapping("/apagar/{id}")
@@ -49,8 +48,13 @@ public class VendedorController {
 	}
 	
 	@DeleteMapping("/apagar")
-	public void apagar(@RequestBody Vendedor vendedor) {
-		servico.apagar(vendedor.getIdvendedor());
+	public void apagar(@RequestBody Produto produto) {
+		servico.apagar(produto.getIdproduto());
 	}
-
+	
+	
 }
+
+
+
+
